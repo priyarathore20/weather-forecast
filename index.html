@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
     <title>Weather Forecast App</title>
   </head>
   <body>
@@ -19,11 +23,19 @@
         <div>
           <form action="" class="search" id="search">
             <input type="text" id="query" placeholder="Search..." />
-            <button class="search">s</button>
+            <button class="fas fa-magnifying-glass"></button>
           </form>
           <div class="weather-icon">
             <img src="./images/cloudy-sun.png" id="icon" />
           </div>
+          <div class="temperature">
+            <h1 id="temp">0</h1>
+            <span class="temp-unit">°C</span>
+          </div>
+          <div class="date-time">
+            <p id="date-time">Monday 12:00 pm</p>
+          </div>
+          <div class="divider"></div>
         </div>
       </div>
     </div>
