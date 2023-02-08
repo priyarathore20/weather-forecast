@@ -17,26 +17,57 @@
     />
     <title>Weather Forecast App</title>
   </head>
+
   <body>
     <div class="wrapper">
       <div class="sidebar">
-        <div>
-          <form action="" class="search" id="search">
-            <input type="text" id="query" placeholder="Search..." />
-            <button class="fas fa-magnifying-glass"></button>
-          </form>
-          <div class="weather-icon">
-            <img src="./images/cloudy-sun.png" id="icon" />
-          </div>
-          <div class="temperature">
-            <h1 id="temp">0</h1>
-            <span class="temp-unit">°C</span>
-          </div>
-          <div class="date-time">
-            <p id="date-time">Monday 12:00 pm</p>
-          </div>
-          <div class="divider"></div>
+        <form action="" class="search" id="search">
+          <input type="text" id="query" placeholder="Search..." />
+          <button class="fas fa-magnifying-glass"></button>
+        </form>
+        <div class="weather-icon">
+          <img src="./images/cloudy-sun.png" id="icon" />
         </div>
+        <div class="temperature">
+          <h1 id="temp">0</h1>
+          <span class="temp-unit">°C</span>
+        </div>
+        <div class="date-time">
+          <p id="date-time">Monday 12:00 pm</p>
+        </div>
+
+        <div class="divider"></div>
+        <div class="condition-rain">
+          <div class="condition">
+            <i class="fas fa-cloud"></i>
+            <div class="conditon" id="condition">conditon</div>
+          </div>
+        </div>
+        <div class="rain">
+          <i class="fas fa-tint"></i>
+          <p id="rain">Perc-0</p>
+        </div>
+
+        <div class="location">
+          <div class="location-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="location-text">
+            <p class="location">location</p>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <nav>
+          <ul class="option">
+            <button class="hourly">Today</button>
+            <button class="Week active">Week</button>
+          </ul>
+          <ul class="option unit">
+            <button class="celcius unit">°C</button>
+            <button class="fahrenheit">°F</button>
+          </ul>
+        </nav>
       </div>
     </div>
 
