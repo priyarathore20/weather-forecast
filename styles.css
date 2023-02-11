@@ -187,6 +187,7 @@ nav .units button{
   width: 100px;
   height: 130px;
   border-radius: 20px;
+  justify-content: space-evenly;
   display: flex;
   flex-direction: column;
   padding: 10px 0;
@@ -216,6 +217,10 @@ nav .units button{
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.card2{
+  margin: 0 42px;
 }
 
 .highlights .heading{
