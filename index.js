@@ -1,4 +1,5 @@
-let temp = document.getElementById('temp');
+const temp = document.getElementById('temp');
+date = document.getElementById('date-time');
 
 let currentCity = '';
 let currentUnit = '';
@@ -7,17 +8,17 @@ let hourlyOrWeek = 'week';
 // UPDATE DATE AND TIME
 function getDateTime() {
   let now = new Date();
-  let hour = now.getHours();
-  let minutes = now.getMinutes();
+  hour = now.getHours();
+  minutes = now.getMinutes();
 
   let days = [
-    'sunday',
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-    'saturday',
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
   ];
 
   hour = hour % 12;
@@ -25,9 +26,29 @@ function getDateTime() {
     hour = '0' + hour;
   }
   if (minutes < 10) {
-    minuntes = '0' + minutes;
+    minutes = '0' + minutes;
   }
 
   let dayString = days[now.getDays()];
-  return `${('dayString')},${('Hour')}:`;
+  return `${dayString},${Hour}:${minutes}`;
 }
+
+date.innerText = getDateTime();
+
+//UPDATE TIME EVERY SECOND
+setInterval(() => {
+  date.innerText = getDateTime();
+}, 1000);
+
+//FUNCTION TO GET PUBLIC IP WITH FETCH
+function getPublicIp() {
+  fetch('https://geolocation-db.com/json/', {
+    method: 'GET',
+  })
+    .then((Response) => Response.json())
+    .then((data) => {
+      currentCity = data.currentCity;
+    });
+}
+
+getPublicIp();
