@@ -39,7 +39,7 @@ date.innerText = getDateTime();
 //UPDATE TIME EVERY SECOND
 setInterval(() => {
   date.innerText = getDateTime();
-}, 1000);
+}, 2000);
 
 //FUNCTION TO GET PUBLIC IP WITH FETCH
 function getPublicIp() {
