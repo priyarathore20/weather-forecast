@@ -7,9 +7,9 @@ let hourlyOrWeek = 'week';
 
 // UPDATE DATE AND TIME
 function getDateTime() {
-  let now = new Date();
-  hour = now.getHours();
-  minutes = now.getMinutes();
+  let now = new Date(),
+    hour = now.getHours(),
+    minutes = now.getMinutes();
 
   let days = [
     'Sunday',
@@ -29,8 +29,9 @@ function getDateTime() {
     minutes = '0' + minutes;
   }
 
-  let dayString = days[now.getDays()];
-  return `${dayString},${Hour}:${minutes}`;
+  let dayString = days[now.getDay()];
+
+  return `${dayString}, ${hour}:${minutes}`;
 }
 
 date.innerText = getDateTime();
@@ -47,6 +48,7 @@ function getPublicIp() {
   })
     .then((Response) => Response.json())
     .then((data) => {
+      console.log(data);
       currentCity = data.currentCity;
     });
 }
