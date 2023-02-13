@@ -101,6 +101,9 @@ function getWeatherData(city, unit, hourlyOrWeek) {
       updateHumidityStatus(today.humidity);
       updateVisibilityStatus(today.visibility);
       updateAirQuality(today.winddir);
+      sunrise.innerText = convertTimeTo12HourFormat(today.sunrise);
+      sunset.innerText = convertTimeTo12HourFormat(today.sunset);
+      mainIcon.src = getIcon(today.icon);
     });
 }
 
@@ -110,14 +113,15 @@ function celciusToFahrenheit(temp) {
 }
 
 //FUNCTION TO MEASURE UV INDEX STATUS
-function measureUvIndex() {
-  if (uvIndex >= 2) {
+function measureUvIndex(uvIndex) {
+  if (uvIndex <= 2) {
     uvText.innerText = 'Low';
-  } else if (uvIndex >= 5) {
+    crossOriginIsolated.log(uvText);
+  } else if (uvIndex <= 5) {
     uvText.innerText = 'Moderate';
-  } else if (uvIndex >= 7) {
+  } else if (uvIndex <= 7) {
     uvText.innerText = 'High';
-  } else if (uvIndex >= 10) {
+  } else if (uvIndex <= 10) {
     uvText.innerText = 'Very High';
   } else {
     uvText.innerText = 'Extreme';
@@ -125,12 +129,65 @@ function measureUvIndex() {
 }
 
 //UPDATE HUMIDITY STATUS
-function updateHumidityStatus() {
-  if (humidity >= 30) {
+function updateHumidityStatus(humidity) {
+  if (humidity <= 30) {
     humidityStatus.innerText = 'Low';
-  } else if (humidity >= 60) {
+  } else if (humidity <= 60) {
     humidityStatus.innerText = 'Moderate';
   } else {
     humidityStatus.innerText = 'high';
   }
+}
+
+//UPDATE VISIBILITY STATUS
+function updateVisibilityStatus(visibility) {
+  if (visibility <= 0.3) {
+    visibilityStatus.innerText = 'Dense Fog';
+  } else if (visibility <= 0.16) {
+    visibilityStatus.innerText = 'Moderate Fog';
+  } else if (visibility <= 0.35) {
+    visibilityStatus.innerText = 'Light Fog';
+  } else if (visibility <= 1.13) {
+    visibilityStatus.innerText = 'Very Light Fog';
+  } else if (visibility <= 2.16) {
+    visibilityStatus.innerText = 'Light Mist';
+  } else if (visibility <= 5.4) {
+    visibilityStatus.innerText = 'Very List Mist';
+  } else if (visibility <= 10.8) {
+    visibilityStatus.innerText = 'Clear Air';
+  } else {
+    visibilityStatus.innerText = 'Very Clean Air';
+  }
+}
+
+//UPDATE AIR QUALITY STATUS
+function updateAirQuality(airQuality) {
+  if (airQuality <= 50) {
+    airQualityStatus.innerText = 'Good';
+  } else if (airQuality <= 100) {
+    airQualityStatus.innerText = 'Moderate';
+  } else if (airQuality <= 150) {
+    airQualityStatus.innerText = 'Unhealthy For Sensitive Groups';
+  } else if (airQuality <= 200) {
+    airQualityStatus.innerText = 'Unhealthy';
+  } else if (airQuality <= 250) {
+    airQualityStatus.innerText = 'Hazardous';
+  }
+}
+
+//UPDATE SUNRISE TIME
+function convertTimeTo12HourFormat(time) {
+  hour = time.split(':')[0];
+  minutes = time.split(':')[1];
+  let ampm = hour >= 12 ? 'pm' : 'am';
+  hour = hour & 12;
+  console.log(hour);
+  hour = hour ? hour : 12;
+  console.log(hour);
+  hour = hour < 10 ? '0' + hour : hour;
+  console.log(hour);
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  console.log(minutes);
+  let strTime = hour + ':' + minutes + ':' + ampm;
+  return strTime;
 }
