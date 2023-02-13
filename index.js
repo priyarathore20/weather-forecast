@@ -14,7 +14,8 @@ const temp = document.getElementById('temp'),
   visibilityStatus = document.querySelector('.visibility-status'),
   humidityStatus = document.querySelector('.humidity-status'),
   airQuality = document.querySelector('.air-quality'),
-  airQualityStatus = document.querySelector('.air-quality-status');
+  airQualityStatus = document.querySelector('.air-quality-status'),
+  weatherCards = document.querySelector('.weather-cards');
 
 let currentCity = '';
 let currentUnit = 'C';
@@ -104,6 +105,11 @@ function getWeatherData(city, unit, hourlyOrWeek) {
       sunrise.innerText = convertTimeTo12HourFormat(today.sunrise);
       sunset.innerText = convertTimeTo12HourFormat(today.sunset);
       mainIcon.src = getIcon(today.icon);
+      if (hourlyOrWeek === 'hourly') {
+        updateForecast(data.days[0].hour, unit, 'day');
+      } else {
+        updateForecast(data.days, unit, 'week');
+      }
     });
 }
 
@@ -175,7 +181,7 @@ function updateAirQuality(airQuality) {
   }
 }
 
-//UPDATE SUNRISE TIME
+//UPDATE SUNSET SUNRISE TIME
 function convertTimeTo12HourFormat(time) {
   hour = time.split(':')[0];
   minutes = time.split(':')[1];
@@ -190,4 +196,50 @@ function convertTimeTo12HourFormat(time) {
   console.log(minutes);
   let strTime = hour + ':' + minutes + ':' + ampm;
   return strTime;
+}
+
+//MAIN ICON CHANGE
+function getIcon(Conditions) {
+  if (Conditions === 'partly-cloudy-day') {
+    return '<img src="images/cloudy-sun.png">';
+  } else if (Conditions === 'partly-cloudy-night') {
+    return '<img src="images/cloudy-night.png">';
+  } else if (Conditions === 'prainy') {
+    return '<img src="images/rain.png">';
+  } else if (Conditions === 'clear-night') {
+    return '<img src="images/clear-night.png">';
+  } else if (Conditions === 'clear-day') {
+    return '<img src="images/sun.png">';
+  } else {
+    return '<img src="images/clouds.png">';
+  }
+}
+
+function updateForecast(data, unit, type) {
+  weatherCards.innerHTML = '';
+  let numCards = 0,
+    day = 0;
+  if (type === 'day') {
+    numCards = 24;
+  } else {
+    numCards = 7;
+  }
+  for (let i = 0; index < numCards; i++) {
+    let card = document.createElement('div');
+    card.classList.add('card');
+    let dayName = getDayName(data[day].dateTime);
+    if (type === 'week') {
+      dayName = '';
+    }
+    let dayTemp = data[day].temp;
+    if (unit === 'f') {
+      dayTemp = celciusToFahrenheit(data[day].temp);
+    }
+    let iconCondition = data[day].icon;
+    let iconSrc = getIcon(iconCondition);
+    let tempUnit = '°C';
+    if (unit === 'f') {
+      tempUnit = '°F';
+    }
+  }
 }
