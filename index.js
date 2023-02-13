@@ -1,18 +1,20 @@
 const temp = document.getElementById('temp'),
   date = document.getElementById('date-time'),
   currentLocation = document.getElementById('location'),
-  Condition = document.getElementById('Condition'),
+  Conditions = document.getElementsByClassName('.Condition'),
   rain = document.getElementById('rain'),
-  mainIcon = document.getElementById('icon'),
-  windspeed = document.querySelector('uv-index'),
-  sunrise = document.querySelector('uv-index'),
-  sunset = document.querySelector('uv-index'),
-  visibility = document.querySelector('uv-index'),
-  humidity = document.querySelector('uv-index'),
-  visibilityStatus = document.querySelector('uv-index'),
-  humidityStatus = document.querySelector('uv-index'),
-  airQuality = document.querySelector('uv-index'),
-  airQualityStatus = document.querySelector('uv-index');
+  uvIndex = document.querySelector('.uv-index'),
+  uvText = document.querySelector('.uv-text'),
+  mainIcon = document.getElementById('.icon'),
+  windSpeed = document.querySelector('.wind-speed'),
+  sunrise = document.querySelector('.sunrise'),
+  sunset = document.querySelector('.sunset'),
+  visibility = document.querySelector('.visibility'),
+  humidity = document.querySelector('.humidity'),
+  visibilityStatus = document.querySelector('.visibility-status'),
+  humidityStatus = document.querySelector('.humidity-status'),
+  airQuality = document.querySelector('.air-quality'),
+  airQualityStatus = document.querySelector('.air-quality-status');
 
 let currentCity = '';
 let currentUnit = 'C';
@@ -52,7 +54,7 @@ date.innerText = getDateTime();
 //UPDATE TIME EVERY SECOND
 setInterval(() => {
   date.innerText = getDateTime();
-}, 2000);
+}, 1000);
 
 //FUNCTION TO GET PUBLIC IP WITH FETCH
 function getPublicIp() {
@@ -87,12 +89,48 @@ function getWeatherData(city, unit, hourlyOrWeek) {
         temp.innerText = celciusToFahrenheit(today.temp);
       }
       currentLocation.innerText = data.resolvedAddress;
-      Condition.innerText = today.conditions;
-      rain.innerText = 'perc -' + today.precipitation + '%';
+      Conditions.innerText = today.condition;
+      console.log(Conditions);
+      rain.innerText = 'perc -' + today.precip + ' ' + '%';
+      uvIndex.innerText = today.uvindex;
+      windSpeed.innerText = today.windspeed;
+      humidity.innerText = today.humidity + ' ' + '%';
+      visibility.innerText = today.visibility;
+      airQuality.innerText = today.winddir;
+      measureUvIndex(today.uvindex);
+      updateHumidityStatus(today.humidity);
+      updateVisibilityStatus(today.visibility);
+      updateAirQuality(today.winddir);
     });
 }
 
 //COVERT CELCIUS TO FAHRENHEIT
 function celciusToFahrenheit(temp) {
   return ((temp * 9) / 5 + 32).toFixed(1);
+}
+
+//FUNCTION TO MEASURE UV INDEX STATUS
+function measureUvIndex() {
+  if (uvIndex >= 2) {
+    uvText.innerText = 'Low';
+  } else if (uvIndex >= 5) {
+    uvText.innerText = 'Moderate';
+  } else if (uvIndex >= 7) {
+    uvText.innerText = 'High';
+  } else if (uvIndex >= 10) {
+    uvText.innerText = 'Very High';
+  } else {
+    uvText.innerText = 'Extreme';
+  }
+}
+
+//UPDATE HUMIDITY STATUS
+function updateHumidityStatus() {
+  if (humidity >= 30) {
+    humidityStatus.innerText = 'Low';
+  } else if (humidity >= 60) {
+    humidityStatus.innerText = 'Moderate';
+  } else {
+    humidityStatus.innerText = 'high';
+  }
 }
