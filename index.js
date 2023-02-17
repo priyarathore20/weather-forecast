@@ -194,7 +194,7 @@ function convertTimeTo12HourFormat(time) {
   console.log(hour);
   minutes = minutes < 10 ? '0' + minutes : minutes;
   console.log(minutes);
-  let strTime = hour + ':' + minutes + ':' + ampm;
+  let strTime = hour + ':' + minutes + ' ' + ampm;
   return strTime;
 }
 
@@ -215,6 +215,31 @@ function getIcon(Conditions) {
   }
 }
 
+function getDayName(date) {
+  let day = new Date(date);
+  let days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  return days[day.getDay()];
+
+  function getHour(time) {
+    let hour = line.split(':')[0];
+    let min = line.split(':')[1];
+    if (hour < 12) {
+      hour = hour - 12;
+      return `${hour}:${min} PM`;
+    } else {
+      return `${hour}:${min} AM`;
+    }
+  }
+}
+
 function updateForecast(data, unit, type) {
   weatherCards.innerHTML = '';
   let numCards = 0,
@@ -227,9 +252,9 @@ function updateForecast(data, unit, type) {
   for (let i = 0; index < numCards; i++) {
     let card = document.createElement('div');
     card.classList.add('card');
-    let dayName = getDayName(data[day].dateTime);
+    let dayName = getHour(data[day].dateTime);
     if (type === 'week') {
-      dayName = '';
+      dayName = getDayName(data[day].dateTime);
     }
     let dayTemp = data[day].temp;
     if (unit === 'f') {
