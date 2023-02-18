@@ -43,14 +43,7 @@ function getDateTime() {
     'Friday',
     'Saturday',
   ];
-  // 12 hours format
-  hour = hour % 12;
-  if (hour < 10) {
-    hour = '0' + hour;
-  }
-  if (minute < 10) {
-    minute = '0' + minute;
-  }
+
   let dayString = days[now.getDay()];
   return `${dayString}, ${hour}:${minute}`;
 }
