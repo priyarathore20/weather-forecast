@@ -44,7 +44,7 @@ function getDateTime() {
     'Saturday',
   ];
 
-  let dayString = days[now.getDay()];
+  let dayString = days[now.getDay()]; //getting the current day from days array
   return `${dayString}, ${hour}:${minute}`;
 }
 
@@ -70,7 +70,9 @@ function getPublicIp() {
     });
 }
 
-getPublicIp();
+// getPublicIp();
+
+getWeatherData("delhi", "c", "week");
 
 // function to get weather data
 function getWeatherData(city, unit, hourlyorWeek) {
@@ -83,6 +85,7 @@ function getWeatherData(city, unit, hourlyorWeek) {
   )
     .then((response) => response.json())
     .then((data) => {
+      console.log(data)
       let today = data.currentConditions;
       if (unit === 'c') {
         temp.innerText = today.temp;
