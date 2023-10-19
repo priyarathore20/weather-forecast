@@ -34,7 +34,7 @@ img {
   max-width: 1200px;
   /* min-width: 900px; */
   border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;
 }
 .sidebar {
   width: 30%;
@@ -284,12 +284,15 @@ img {
   transform: translateX(-50%);
 } 
 
-@media screen and (max-width: 360px ) {
+@media screen and (max-width: 390px ) {
   .wrapper{
     display: flex;
     flex-direction: column;
   }
   .sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: 15px 15px 0 0;
   }
   .main{
@@ -344,7 +347,7 @@ height: 150px;
 
   .main{
     width: 100%;
-    max-width: 250px;
+    max-width: 500px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -352,12 +355,15 @@ height: 150px;
     background-color: #c1c4c9;
     border-radius: 0 0 15px 15px;
   }
+  .main nav{
+    width: 400px;
+  }
   .main nav .options button{
-    font-size: small;
+    font-size: medium;
   }
 .main nav .units button {
-height: 25px;
-width: 35px;
+height: 35px;
+width: 45px;
 }
 .main nav .units{
 margin-left: 20px;
@@ -367,8 +373,8 @@ justify-content: center;
   }
 .cards .card {
 width: 100%;
-max-width: 200px;
-height: 150px;
+max-width: 250px;
+height: 190px;
 }
 .card2 .content p:first-child{
   font-size: 20px;
@@ -381,4 +387,19 @@ height: 150px;
   text-align: center;
   margin-top: 5px;
 }
+.condition-rain{
+  font-size: 14px;
+}
+.location{
+  font-weight: bold;
+  font-size: medium;
+}
+}
+@media screen and (max-width: 760px) {
+  .main .cards{
+    justify-content: space-around;
+  }
+  .cards .card{
+    width: max-content;
+  }
 }
